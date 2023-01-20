@@ -1,26 +1,57 @@
+"""
+Для представления рациональных чисел разработайте и реализуйте отдельную АСД RatNum.
+RatNum представляет собой неизменяемое (immutable) рациональное число. 
+RatNum может использоваться для представления любого элемента множества рациональных чисел,
+а также специального элемента “NaN” (не-число), получающегося в результате деления на ноль.
+
+Элемент “NaN” является во многом особенным. 
+При выполнении любых арифметических операций с “NaN”, результат будет “NaN”. 
+Что касается операций сравнения, таких как “меньше чем”, 
+“NaN” считается равным самому себе и большим, чем любые другие рациональные числа.
+
+Примеры объектов RatNum включают “-1/13”, “53/7”, “4”, “NaN” и “0”.
+Необходимо обеспечить выполнение следующих операций:
+– is_nan()
+– is_negative()
+– is_positive()
+– compare_to()
+– float_value()
+– int_value()
+– negate()
+– add()
+– sub()
+– mul()
+– div()
+– gcd()
+– __str__()
+– __hash__()
+– __eq__()
+"""
+
+
 class RatNum:
     def __init__(self, numerator, denominator=1):
         self.numerator = numerator
         self.denominator = denominator
         if type(numerator) != int or type(denominator) != int:
-            raise ValueError("Wrong type of numerator/denominator! Must be 'int' type")
-    
+            raise ValueError("Wrong type of numerator/denominator! Must be 'int' type") 
+
     @property
     def _value(self):
         return "NaN" if self.is_nan() else self.numerator / self.denominator
-    
+
     def is_nan(self):
         if self.denominator == 0:
             return True
         return False
-    
+
     def is_negative(self):
         if self.numerator < 0 and self.denominator > 0:
             return True
         elif self.numerator > 0 and self.denominator < 0:
             return True
         return False
-    
+
     def is_positive(self):
         if self.numerator > 0 and self.denominator > 0:
             return True
@@ -44,7 +75,7 @@ class RatNum:
                 return f"{self} < {other}"
             elif s == o:
                 return f"{self} = {other}"
-    
+
     def float_value(self):
         if self.is_nan():
             return "NaN"
@@ -105,7 +136,7 @@ class RatNum:
         while b:
             a, b = b, a % b
         return a
-    
+
     def __str__(self):
         if self.is_nan():
             return "NaN"
@@ -118,8 +149,8 @@ class RatNum:
             if self.denominator == 1:
                 return f"{self.numerator}"
             else:
-                return f"{int(self.numerator/gcd)}/{int(self.denominator/gcd)}"
-    
+                return f"{int(self.numerator/gcd)}/{int(self.denominator/gcd)}"    
+
     def __eq__(self, other):
         return self.numerator * other.denominator == self.denominator * other.numerator
 
